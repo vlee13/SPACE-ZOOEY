@@ -2,15 +2,13 @@ window.onload = (e) => {
   console.log(e);
 };
 
-// GitHub README
-// project description
-// link to the demo
-// technologies used
 
 // LOGIC
+// first page - title & start button
 // collision detect on zooey- zooey poof/stop animation/alert("game over")
 // get aliens to explode and give coins when they die
 // score = coins
+// missles
 
 // AESTHETICS
 // rectangles bullets to sprite bullets
@@ -39,6 +37,8 @@ let alien = new Image();
 alien.src = "../images/monsters3.png";
 let aliens = [];
 let bullets = [];
+let coin = new Image();
+coin.src = "../images/coinrings.jpg"
 
 
 /*******ANIMATION***********/
@@ -53,6 +53,7 @@ function animationLoop() {
   ctx.fillStyle = "green";
   drawAlien();
   drawBullet();
+  // drawCoin();
   detectCollision();
   animationID = window.requestAnimationFrame(animationLoop);
 }
@@ -104,12 +105,12 @@ function createAlien() {
   }
 }
 setInterval(createAlien, 4000);
-setInterval(shootBullets, 100);
+setInterval(shootBullets, 50);
 
 function drawBullet(){
   bullets.forEach(bullet =>{
     ctx.fillStyle = bullet.color;
-    ctx.fillRect(bullet.x, bullet.y-=5, bullet.width, bullet.height)
+    ctx.fillRect(bullet.x, bullet.y-=15, bullet.width, bullet.height)
   })
 }
 function shootBullets(){
@@ -121,6 +122,17 @@ function shootBullets(){
     height: 10
   }
   bullets.push(bullet)
+}
+
+function drawCoin(){
+  ctx.fillStyle = "yellow"
+  ctx.fillRect(coin.x, coin.y, 25, 25)
+}
+
+function spitCoins(){
+  if(alien.strength===0){
+    drawCoin()
+  }
 }
 
 function detectCollision(){
