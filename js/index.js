@@ -37,25 +37,25 @@ let alien = new Image();
 alien.src = "../images/monsters3.png";
 let aliens = [];
 let bullets = [];
-let coin = new Image();
-coin.src = "../images/coinrings.jpg"
+let coins = [];
+let score = 0;
 
 
 /*******ANIMATION***********/
 function animationLoop() {
+  animationID = window.requestAnimationFrame(animationLoop);
   ctx.clearRect(0, 50, canvas.width, canvas.height);
   ctx.drawImage(road, 0, ++canvasY, canvas.width, canvas.height);
   ctx.drawImage(road, 0, ++canvasY2, canvas.width, canvas.height);
   if (canvasY >= canvas.height) canvasY = -canvas.height;
   if (canvasY2 >= canvas.height) canvasY2 = -canvas.height;
-  ctx.drawImage(zooey, imageX, imageY, 96, 96, xPositionZooey, yPositionZooey, 120, 100); 
+  ctx.drawImage(zooey, imageX, imageY, 96, 96, xPositionZooey, yPositionZooey, 130, 100); 
   // (imageObj, imageX, imageY, imageWidth, imageHeight, xCanvas, yCanvas, widthCanvas, heightCanvas)
   ctx.fillStyle = "green";
   drawAlien();
   drawBullet();
-  // drawCoin();
+  drawCoin();
   detectCollision();
-  animationID = window.requestAnimationFrame(animationLoop);
 }
 
 animationLoop();
@@ -104,7 +104,7 @@ function createAlien() {
     aliens.push(newAliens);
   }
 }
-setInterval(createAlien, 4000);
+setInterval(createAlien, 1000);
 setInterval(shootBullets, 50);
 
 function drawBullet(){
@@ -125,14 +125,11 @@ function shootBullets(){
 }
 
 function drawCoin(){
-  ctx.fillStyle = "yellow"
-  ctx.fillRect(coin.x, coin.y, 25, 25)
-}
+  coins.forEach(coin=>{
+    ctx.fillStyle = "yellow"
+    ctx.fillRect(coin.x, coin.y+=5, 20, 20)
 
-function spitCoins(){
-  if(alien.strength===0){
-    drawCoin()
-  }
+  })
 }
 
 function detectCollision(){
@@ -145,18 +142,48 @@ function detectCollision(){
         bullet.y + bullet.height > obs.y) {
           aliens[i].strength--
           if(aliens[i].strength <= 0){
+          
+            let newCoin = {
+              x: aliens[i].x, 
+              y: aliens[i].y, 
+              width: 20,
+              height: 20
+            }
+            coins.push(newCoin)
             aliens.splice(i,1)
           }
-            bullets.splice(j,1)
-      }
+          bullets.splice(j,1)
+        }
+      if(obs.y>canvas.height){
+        aliens.splice(i,1)
+      } 
+      if(bullet.y<0){
+        bullets.splice(j,1)
+      } 
     })
-    if (zooey.imageX < obs.x + obs.width &&
-      zooey.imageX + zooey.width > obs.x &&
-      zooey.imageY < obs.y + obs.height &&
-      zooey.imageY + zooey.height > obs.y) {
+    
+
+    if (xPositionZooey < obs.x + obs.width &&
+      xPositionZooey + -5 > obs.x &&
+      yPositionZooey < obs.y + obs.height &&
+      yPositionZooey + -5 > obs.y) {
        console.log('collision')
        window.cancelAnimationFrame(animationID)
-          // alert('Game Over') //not detecting collision whyyy
+          alert('Game Over')
     }
   })
+    coins.forEach((coin,k)=>{
+      if (xPositionZooey < coin.x + coin.width &&
+        xPositionZooey + -10 > coin.x &&
+        yPositionZooey < coin.y + coin.height &&
+        yPositionZooey + -10 > coin.y) {
+         console.log('got coin')
+         coins.splice(k,1) 
+         score++
+        }  
+      if(coin.y>canvas.height){
+        coins.splice(k,1)
+      } 
+    })
+      
 }
