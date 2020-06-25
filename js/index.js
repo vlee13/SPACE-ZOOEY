@@ -3,18 +3,16 @@ window.onload = (e) => {
 };
 
 
-// LOGIC
-//difficulty 
-
 
 // AESTHETICS
 // rectangles bullets to sprite bullets
 // change rectangle obstacles to alien sprites
 // collision from alert to sprite animation
 // get aliens to explode
+// audio
 
 // WOULD BE NICE HAVE
-// last - socket.io for high score
+// high score of friends
 
 
 /*************GLOBAL********/
@@ -105,7 +103,7 @@ function drawAlien() {
       alien.color="rgb(0,255,0)"
     }
     if(alien.strength===1){
-      alien.color="rgb(255,0,0)"
+      alien.color="orange"
     }
     ctx.fillStyle = alien.color
     ctx.fillRect(alien.x, (alien.y += 3), alien.width, alien.height);
@@ -113,7 +111,6 @@ function drawAlien() {
 }
 
 function createAlien() {
-  console.log('create alien', rowSpeed)
   x = 30;
   for(let i =0; i < 8; i++) {
 
@@ -129,18 +126,22 @@ function createAlien() {
   }
 }
 
-let rowSpeed = 3000
-
+let currentSpeed = 4000;        // the current alien speed
+let speedChange = 300;          // this is how much the speed will "increase" by
+let speedChangeFrequency = 8000 // change the speed of the  aliens every 6500 secs
+let topSpeed = 400;             // the fastest speed the aliens will appear
+let alienInterval;
 function difficulty(){
-  if(rowSpeed-500 >= 500){
-    rowSpeed-=500
-    console.log('faster', rowSpeed)
+  if(currentSpeed-speedChange >= topSpeed){
+    clearInterval(alienInterval)
+    currentSpeed -= speedChange
+    alienInterval = setInterval(createAlien, currentSpeed);
   }
-
 }
+alienInterval = setInterval(createAlien, currentSpeed);
+setInterval(difficulty, speedChangeFrequency)
 
-setInterval(difficulty, 1000)
-setInterval(createAlien, 1000);
+setInterval(createAlien, 4000);
 setInterval(shootBullets, 50);
 setInterval(shootFireball, 5000);
 
