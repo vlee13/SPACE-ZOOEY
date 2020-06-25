@@ -8,45 +8,53 @@ html {
 }
 
 .bg {
-    background-image: url("./images/spacebg1.jpg"); /*bg not working whyyyy*/
+    position: relative;
+    background-image: url("./images/spacebg1.jpg"); 
     height: 100vh;
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
 }
 
-body {
-   display: flex;
-   flex-direction: column;
-   justify-content: center; 
-}
-
 .title {
-    color: black;
+    color: white;
     font-size: 80px;
-    display: flex;
-    justify-content: center;
-    margin: 100px auto 50px auto;
-}
-
-#highscores ul {
-    color: black;
-    font-size: 30px;
+    position: absolute;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    z-index: 5;
+    margin: 200px 0px auto 650px
+}
+
+#highscores ul {
+    color: rgb(81, 74, 124);
+    font-size: 30px;
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    z-index: 2;
     list-style-type: none;
     font-weight: bolder;
+    margin: 100px auto auto -150px
 }
 
 
 
 .startBtn {
-    background-color: red;
-    margin: 50px 850px 50px 900px;
-    padding: 20px;
+    background-color: rgb(34, 185, 34);
+    margin: 700px auto auto 880px;
+    padding: 20px 35px;
     font-size: 20px;
     font-weight: bolder;
-    box-shadow: 5px 10px #888888
+    box-shadow: 5px 10px #eb97d8;
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    z-index: 3;
 }

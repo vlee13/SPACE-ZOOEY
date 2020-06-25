@@ -14,3 +14,10 @@ body{
 
 }
 
+.currentScore {
+  width: 100px;
+  height: 100px;
+  color: white;
+  display: flex;
+  justify-content: flex-end
+}

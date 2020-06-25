@@ -4,16 +4,14 @@ window.onload = (e) => {
 
 
 // LOGIC
-// first page - title & start button
-// collision detect on zooey- zooey poof/stop animation/alert("game over")
-// get aliens to explode and give coins when they die
-// score = coins
-// missles
+//difficulty 
+
 
 // AESTHETICS
 // rectangles bullets to sprite bullets
 // change rectangle obstacles to alien sprites
 // collision from alert to sprite animation
+// get aliens to explode
 
 // WOULD BE NICE HAVE
 // last - socket.io for high score
@@ -42,7 +40,8 @@ coinImage.src = "../images/coinimage.png";
 let aliens = [];
 let bullets = [];
 let coins = [];
-let score = 0;
+let fireballs = [];
+let currentScore = 0;
 
 
 /*******ANIMATION***********/
@@ -57,10 +56,10 @@ function animationLoop() {
   // ctx.strokeStyle = "red"
   // ctx.strokeRect(xPositionZooey, yPositionZooey, zWidth, zHeight);
   // (imageObj, imageX, imageY, imageWidth, imageHeight, xCanvas, yCanvas, widthCanvas, heightCanvas)  
-  ctx.fillStyle = "green";
   drawAlien();
   drawBullet();
   drawCoin();
+  drawFireball();
   detectCollision();
 }
 
@@ -82,6 +81,24 @@ function moveZooey(e) {
   }
 }
 
+function drawFireball(){
+  fireballs.forEach(fireball =>{
+    ctx.fillStyle = fireball.color;
+    ctx.fillRect(fireball.x, (fireball.y+=10), fireball.width, fireball.height)
+ })
+}
+
+function shootFireball(){
+  let fireball = {
+    x: xPositionZooey + zWidth/2,
+    y: 0,
+    color: "red",
+    width: 25,
+    height: 40
+  }
+  fireballs.push(fireball)
+}
+
 function drawAlien() {
   aliens.forEach((alien) => {
     if(alien.strength===3){
@@ -96,6 +113,7 @@ function drawAlien() {
 }
 
 function createAlien() {
+  console.log('create alien', rowSpeed)
   x = 30;
   for(let i =0; i < 8; i++) {
 
@@ -110,8 +128,21 @@ function createAlien() {
     aliens.push(newAliens);
   }
 }
+
+let rowSpeed = 3000
+
+function difficulty(){
+  if(rowSpeed-500 >= 500){
+    rowSpeed-=500
+    console.log('faster', rowSpeed)
+  }
+
+}
+
+setInterval(difficulty, 1000)
 setInterval(createAlien, 1000);
 setInterval(shootBullets, 50);
+setInterval(shootFireball, 5000);
 
 function drawBullet(){
   bullets.forEach(bullet =>{
@@ -169,17 +200,34 @@ function detectCollision(){
     })
     
 
-    if (xPositionZooey < obs.x + obs.width -45 && //left of zooey
+    if(xPositionZooey < obs.x + obs.width -45 && //left of zooey
       xPositionZooey + zWidth > obs.x + 40 &&     //right of zooey
       yPositionZooey < obs.y + obs.height &&
       yPositionZooey + zHeight > obs.y) {
-       console.log('collision')
-       window.cancelAnimationFrame(animationID)
-          alert('Game Over')
-          window.location.href="index.html" 
-          // location.reload()
+        ctx.clearRect(xPositionZooey, yPositionZooey, zWidth, zHeight)
+        ctx.drawImage(road, xPositionZooey, yPositionZooey, canvas.width, canvas.height);
+        console.log('collision')
+        window.cancelAnimationFrame(animationID)
+        alert("You were eaten by aliens")
+        window.location.href="index.html" 
+        // location.reload()
     }
   })
+
+  fireballs.forEach((fireball,h)=>{
+    if(xPositionZooey < fireball.x + fireball.width &&
+      xPositionZooey + zWidth > fireball.x &&
+      yPositionZooey < fireball.y + fireball.height &&
+      yPositionZooey + zHeight > fireball.y) {
+        ctx.clearRect(xPositionZooey, yPositionZooey, zWidth, zHeight)
+        ctx.drawImage(road, xPositionZooey, yPositionZooey, canvas.width, canvas.height);
+        window.cancelAnimationFrame(animationID)
+        alert("Fireball killed you!")
+        window.location.href="index.html" 
+        // location.reload()
+      }
+  })
+
     coins.forEach((coin,k)=>{ 
       if (xPositionZooey < coin.x + coin.width &&
         xPositionZooey + zWidth > coin.x &&
@@ -187,7 +235,10 @@ function detectCollision(){
         yPositionZooey + zHeight > coin.y) {
          console.log('got coin')
          coins.splice(k,1) 
-         score++
+         currentScore++
+          document.querySelector("#currentScore").innerHTML = `Points: ${currentScore}`
+
+
         }  
       if(coin.y > canvas.height){
         coins.splice(k,1)
