@@ -28,6 +28,8 @@ let zooey = new Image();
 zooey.src = "../images/zooey.png";
 let yPositionZooey = canvas.height - 120;
 let xPositionZooey = canvas.width / 2 - 50;
+let zWidth = 130;
+let zHeight =100;
 let imageX = 0;
 let imageY = 96 * 2;
 let animationID;
@@ -51,7 +53,9 @@ function animationLoop() {
   ctx.drawImage(road, 0, ++canvasY2, canvas.width, canvas.height);
   if (canvasY >= canvas.height) canvasY = -canvas.height;
   if (canvasY2 >= canvas.height) canvasY2 = -canvas.height;
-  ctx.drawImage(zooey, imageX, imageY, 96, 96, xPositionZooey, yPositionZooey, 130, 100); 
+  ctx.drawImage(zooey, imageX, imageY, 96, 96, xPositionZooey, yPositionZooey, zWidth, zHeight);
+  // ctx.strokeStyle = "red"
+  // ctx.strokeRect(xPositionZooey, yPositionZooey, zWidth, zHeight);
   // (imageObj, imageX, imageY, imageWidth, imageHeight, xCanvas, yCanvas, widthCanvas, heightCanvas)  
   ctx.fillStyle = "green";
   drawAlien();
@@ -156,34 +160,36 @@ function detectCollision(){
           }
           bullets.splice(j,1)
         }
-      if(obs.y>canvas.height){
-        aliens.splice(i,1)
-      } 
+      // if(obs.y >canvas.height +1000){
+      //   aliens.splice(i,1)
+      // } 
       if(bullet.y<0){
         bullets.splice(j,1)
       } 
     })
     
 
-    if (xPositionZooey < obs.x + obs.width &&
-      xPositionZooey + -5 > obs.x &&
+    if (xPositionZooey < obs.x + obs.width -45 && //left of zooey
+      xPositionZooey + zWidth > obs.x + 40 &&     //right of zooey
       yPositionZooey < obs.y + obs.height &&
-      yPositionZooey + -5 > obs.y) {
+      yPositionZooey + zHeight > obs.y) {
        console.log('collision')
        window.cancelAnimationFrame(animationID)
           alert('Game Over')
+          window.location.href="index.html" 
+          // location.reload()
     }
   })
-    coins.forEach((coin,k)=>{ //collision not working here
+    coins.forEach((coin,k)=>{ 
       if (xPositionZooey < coin.x + coin.width &&
-        xPositionZooey + -10 > coin.x &&
+        xPositionZooey + zWidth > coin.x &&
         yPositionZooey < coin.y + coin.height &&
-        yPositionZooey + -10 > coin.y) {
+        yPositionZooey + zHeight > coin.y) {
          console.log('got coin')
          coins.splice(k,1) 
          score++
         }  
-      if(coin.y>canvas.height){
+      if(coin.y > canvas.height){
         coins.splice(k,1)
       } 
     })
