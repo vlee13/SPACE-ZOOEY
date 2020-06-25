@@ -6,11 +6,11 @@ window.onload = (e) => {
 // audio
 // rectangles bullets to sprite bullets
 // fireball sprite
-// zooey explodes when she dies 
+// zooey explodes when she dies
 // get aliens to explode
 
 // WOULD BE NICE HAVE
-// high score of friends
+// high score with friends
 
 /*************GLOBAL********/
 
@@ -24,7 +24,8 @@ let alienImg = new Image();
 alienImg.src = "../images/monsters3.png";
 let coinImage = new Image();
 coinImage.src = "../images/coinimage.png";
-let fireballImg = "../images/fireballpng";
+let fireballImg = new Image();
+fireballImg.src = "../images/fireball.png";
 let yPositionZooey = canvas.height - 120;
 let xPositionZooey = canvas.width / 2 - 50;
 let zWidth = 130;
@@ -63,7 +64,7 @@ function animationLoop() {
   drawAlien();
   drawBullet();
   drawCoin();
-  drawFireball();
+  drawFireballs();
   detectCollision();
 }
 
@@ -85,29 +86,35 @@ function moveZooey(e) {
   }
 }
 
-function drawFireball() {
+function drawFireballs() {
   fireballs.forEach((fireball) => {
-    ctx.fillStyle = fireball.color;
-    ctx.fillRect(
+    fireball.imgP = (fireball.imgP + 1) % 3;
+    ctx.fillStyle = "yellow";
+    console.log(fireball.imgP);
+    ctx.drawImage(
+      fireballImg,
+      fireball.imgP * 50,
+      0,
+      50,
+      50,
       fireball.x,
-      (fireball.y += 10),
-      fireball.width,
-      fireball.height
+      (fireball.y += 5),
+      50,
+      50
     );
   });
 }
 
 function shootFireball() {
-  let fireball = {
-    x: xPositionZooey + zWidth / 2,
+  const fireball = {
+    x: xPositionZooey + 40,
     y: 0,
-    color: "red",
-    width: 25,
-    height: 40,
+    width: 30,
+    height: 30,
+    imgP: 0,
   };
   fireballs.push(fireball);
 }
-
 
 function drawAlien() {
   aliens.forEach((alien) => {
@@ -150,10 +157,10 @@ function createAlien() {
   }
 }
 
-let currentSpeed = 4000;         // the current alien speed
-let speedChange = 300;           // this is how much the speed will "increase" by
+let currentSpeed = 4000; // the current alien speed
+let speedChange = 300; // this is how much the speed will "increase" by
 let speedChangeFrequency = 8000; // change the speed of the  aliens every 6500 secs
-let topSpeed = 400;              // the fastest speed the aliens will appear
+let topSpeed = 400; // the fastest speed the aliens will appear
 let alienInterval;
 function difficulty() {
   if (currentSpeed - speedChange >= topSpeed) {
@@ -241,7 +248,7 @@ function detectCollision() {
 
     if (
       xPositionZooey < obs.x + obs.width - 45 && //left of zooey
-      xPositionZooey + zWidth > obs.x + 40 &&    //right of zooey
+      xPositionZooey + zWidth > obs.x + 40 && //right of zooey
       yPositionZooey < obs.y + obs.height &&
       yPositionZooey + zHeight > obs.y
     ) {
