@@ -1,0 +1,52 @@
+body, html, main {
+    margin: 0;
+}
+
+html {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 20px;
+}
+
+.bg {
+    background-image: url("../images/spacebg.jpg"); /*bg not working whyyyy*/
+    height: 100%;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+body {
+   display: flex;
+   flex-direction: column;
+   justify-content: center; 
+}
+
+body h1 {
+    color: black;
+    font-size: 80px;
+    display: flex;
+    justify-content: center;
+    margin: 200px auto 50px auto;
+}
+
+#highscores ul {
+    color: black;
+    font-size: 30px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    list-style-type: none;
+    font-weight: bolder;
+}
+
+
+
+.startBtn {
+    background-color: red;
+    margin: 50px 850px 50px 900px;
+    padding: 20px;
+    font-size: 20px;
+    font-weight: bolder;
+    box-shadow: 5px 10px #888888
+}

@@ -35,6 +35,8 @@ let canvasY2 = 0;
 let canvasY = -canvas.height;
 let alien = new Image();
 alien.src = "../images/monsters3.png";
+let coinImage = new Image()
+coinImage.src = "../images/coinimage.png";
 let aliens = [];
 let bullets = [];
 let coins = [];
@@ -50,7 +52,7 @@ function animationLoop() {
   if (canvasY >= canvas.height) canvasY = -canvas.height;
   if (canvasY2 >= canvas.height) canvasY2 = -canvas.height;
   ctx.drawImage(zooey, imageX, imageY, 96, 96, xPositionZooey, yPositionZooey, 130, 100); 
-  // (imageObj, imageX, imageY, imageWidth, imageHeight, xCanvas, yCanvas, widthCanvas, heightCanvas)
+  // (imageObj, imageX, imageY, imageWidth, imageHeight, xCanvas, yCanvas, widthCanvas, heightCanvas)  
   ctx.fillStyle = "green";
   drawAlien();
   drawBullet();
@@ -123,11 +125,11 @@ function shootBullets(){
   }
   bullets.push(bullet)
 }
-
 function drawCoin(){
-  coins.forEach(coin=>{
+  coins.forEach((coin, enemy)=>{
     ctx.fillStyle = "yellow"
     ctx.fillRect(coin.x, coin.y+=5, 20, 20)
+    // ctx.drawImage(coinImage, coin.x, coin.y+=5, 46, 46, enemy.x, enemy.y, 46, 46)
 
   })
 }
@@ -172,7 +174,7 @@ function detectCollision(){
           alert('Game Over')
     }
   })
-    coins.forEach((coin,k)=>{
+    coins.forEach((coin,k)=>{ //collision not working here
       if (xPositionZooey < coin.x + coin.width &&
         xPositionZooey + -10 > coin.x &&
         yPositionZooey < coin.y + coin.height &&
