@@ -26,17 +26,15 @@ mainAudio.play()
 const canvas = document.querySelector("#canvas");
 const ctx = canvas.getContext("2d");
 let road = new Image();
-road.src = "../images/spacebg2.jpg";
+road.src = "./images/spacebg2.jpg";
 let zooey = new Image();
-zooey.src = "../images/zooey.png";
+zooey.src = "./images/zooey.png";
 let alienImg = new Image();
-alienImg.src = "../images/monsters3.png";
+alienImg.src = "./images/monsters3.png";
 let coinImage = new Image();
-coinImage.src = "../images/coinimage.png";
+coinImage.src = "./images/coinimage.png";
 let fireballImg = new Image();
-fireballImg.src = "../images/fireball.png";
-let bulletImg = new Image();
-bulletImg.src = "../images/pinkbullet.png";
+fireballImg.src = "./images/fireball.png";
 let yPositionZooey = canvas.height - 120;
 let xPositionZooey = canvas.width / 2 - 50;
 let zWidth = 130;
@@ -211,7 +209,6 @@ function drawCoin() {
   coins.forEach((coin, enemy) => {
     coin.imgP = (coin.imgP + 1) % 10;
     ctx.fillStyle = "yellow";
-    console.log(coin.imgP);
     ctx.drawImage(
       coinImage,
       coin.imgP * 44,
