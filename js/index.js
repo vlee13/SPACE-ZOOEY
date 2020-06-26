@@ -4,7 +4,7 @@ window.onload = (e) => {
 let mainAudio = document.querySelector("#audio");
 console.dir(mainAudio);
 mainAudio.loop = true;
-mainAudio.volume = 0.1;
+mainAudio.volume = 0.009;
 mainAudio.play();
 
 // TO DO:
