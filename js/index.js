@@ -5,7 +5,7 @@ let mainAudio = document.querySelector("#audio")
 console.dir(mainAudio)
 mainAudio.loop = true;
 mainAudio.volume = .1
-mainAudio.play()
+
 
 // TO DO:
 // audio tweek - hide audio image, loop and volume control
@@ -86,8 +86,15 @@ async function animationLoop() {
 animationLoop();
 
 canvas.onmousemove = moveZooey;
+let audioNoStart = true
+
+
 
 function moveZooey(e) {
+  if(audioNoStart){
+    mainAudio.play()
+    audioNoStart=false
+  }
   // console.log(e.clientX, e.clientY);
   var w = window.innerWidth;
   let m = (w - canvas.width) / 2;
