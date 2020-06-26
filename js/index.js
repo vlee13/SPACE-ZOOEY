@@ -1,10 +1,7 @@
 window.onload = (e) => {
   console.log(e);
 };
-let mainAudio = document.querySelector("#audio")
-console.dir(mainAudio)
-mainAudio.loop = true;
-mainAudio.volume = .1
+let mainAudio;
 
 
 // TO DO:
@@ -92,6 +89,10 @@ let audioNoStart = true
 
 function moveZooey(e) {
   if(audioNoStart){
+    mainAudio = document.querySelector("#audio")
+    console.dir(mainAudio)
+    mainAudio.loop = true;
+    mainAudio.volume = .1
     mainAudio.play()
     audioNoStart=false
   }
