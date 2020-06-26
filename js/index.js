@@ -1,6 +1,11 @@
 window.onload = (e) => {
   console.log(e);
 };
+let mainAudio = document.querySelector("#audio")
+console.dir(mainAudio)
+mainAudio.loop = true;
+mainAudio.volume = .1
+mainAudio.play()
 
 // TO DO:
 // audio tweek - hide audio image, loop and volume control
@@ -47,9 +52,6 @@ let coins = [];
 let fireballs = [];
 let currentScore = 0;
 let died = false;
-let mainAudio = document.getElementById("#audio")
-// mainAudio.loop = true;
-// mainAudio.volume = .5
 
 /*******ANIMATION***********/
 
@@ -78,6 +80,7 @@ async function animationLoop() {
   drawFireballs();
   if (died) {
     window.cancelAnimationFrame(animationID);
+    mainAudio.pause()  
   }
   detectCollision();
 }
