@@ -1,11 +1,11 @@
 window.onload = (e) => {
   console.log(e);
 };
-let mainAudio = document.querySelector("#audio")
-console.dir(mainAudio)
+let mainAudio = document.querySelector("#audio");
+console.dir(mainAudio);
 mainAudio.loop = true;
-mainAudio.volume = .01
-
+mainAudio.volume = 0.1;
+mainAudio.play();
 
 // TO DO:
 // audio tweek - hide audio image, loop and volume control
@@ -14,12 +14,10 @@ mainAudio.volume = .01
 // how to pop-up window game over (not alert - makes bug)
 // css issues with all text
 
-
 // WOULD BE NICE HAVE
 // high score with friends
 // aliens and zooey explode when they die
 // audio for bullets, fireball, coin pick up, alien explode
-
 
 /*************GLOBAL********/
 
@@ -78,7 +76,7 @@ async function animationLoop() {
   drawFireballs();
   if (died) {
     window.cancelAnimationFrame(animationID);
-    mainAudio.pause()  
+    mainAudio.pause();
   }
   detectCollision();
 }
@@ -165,10 +163,10 @@ function createAlien() {
   }
 }
 
-let currentSpeed = 4000;         // the current alien speed
-let speedChange = 300;           // this is how much the speed will "increase" by
+let currentSpeed = 4000; // the current alien speed
+let speedChange = 300; // this is how much the speed will "increase" by
 let speedChangeFrequency = 8000; // change the speed of the  aliens every 6500 secs
-let topSpeed = 400;              // the fastest speed the aliens will appear
+let topSpeed = 400; // the fastest speed the aliens will appear
 let alienInterval;
 function difficulty() {
   if (currentSpeed - speedChange >= topSpeed) {
@@ -191,7 +189,7 @@ function drawBullet() {
   });
 }
 
-canvas.onclick = shootBullets
+canvas.onclick = shootBullets;
 
 function shootBullets(e) {
   let bullet = {
@@ -262,7 +260,7 @@ function detectCollision() {
       yPositionZooey < obs.y + obs.height &&
       yPositionZooey + zHeight > obs.y
     ) {
-      died = true
+      died = true;
     }
   });
 
@@ -286,7 +284,7 @@ function detectCollision() {
     ) {
       console.log("got coin");
       coins.splice(k, 1);
-      currentScore+=10;
+      currentScore += 10;
       document.querySelector(
         "#currentScore"
       ).innerHTML = `Points: ${currentScore}`;
