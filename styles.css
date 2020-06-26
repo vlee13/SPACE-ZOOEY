@@ -1,3 +1,7 @@
+html {
+  font-family: "gamefont", Arial, sans-serif;
+}
+
 body{
     overflow:hidden;
     background-color: black;
@@ -23,4 +27,9 @@ body{
   text-align: center;
   left: 71%;
   top: 3%;
+}
+
+#audio {
+  position: absolute;
+
 }

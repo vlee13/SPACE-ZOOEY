@@ -2,15 +2,19 @@ window.onload = (e) => {
   console.log(e);
 };
 
-// AESTHETICS
-// audio
+// TO DO:
+// audio tweek - hide audio image, loop and volume control
+// hold mouse down for shooting bullets
 // rectangles bullets to sprite bullets
-// fireball sprite
-// zooey explodes when she dies
-// get aliens to explode
+// how to pop-up window game over (not alert - makes bug)
+// css issues with all text
+
 
 // WOULD BE NICE HAVE
 // high score with friends
+// aliens and zooey explode when they die
+// audio for bullets, fireball, coin pick up, alien explode
+
 
 /*************GLOBAL********/
 
@@ -26,6 +30,8 @@ let coinImage = new Image();
 coinImage.src = "../images/coinimage.png";
 let fireballImg = new Image();
 fireballImg.src = "../images/fireball.png";
+let bulletImg = new Image();
+bulletImg.src = "../images/pinkbullet.png";
 let yPositionZooey = canvas.height - 120;
 let xPositionZooey = canvas.width / 2 - 50;
 let zWidth = 130;
@@ -40,31 +46,39 @@ let bullets = [];
 let coins = [];
 let fireballs = [];
 let currentScore = 0;
+let died = false;
+let mainAudio = document.getElementById("#audio")
+// mainAudio.loop = true;
+// mainAudio.volume = .5
 
 /*******ANIMATION***********/
 
-function animationLoop() {
+async function animationLoop() {
   animationID = window.requestAnimationFrame(animationLoop);
   ctx.clearRect(0, 50, canvas.width, canvas.height);
   ctx.drawImage(road, 0, ++canvasY, canvas.width, canvas.height);
   ctx.drawImage(road, 0, ++canvasY2, canvas.width, canvas.height);
   if (canvasY >= canvas.height) canvasY = -canvas.height;
   if (canvasY2 >= canvas.height) canvasY2 = -canvas.height;
-  ctx.drawImage(
-    zooey,
-    imageX,
-    imageY,
-    96,
-    96,
-    xPositionZooey,
-    yPositionZooey,
-    zWidth,
-    zHeight
-  );
+  if (!died)
+    ctx.drawImage(
+      zooey,
+      imageX,
+      imageY,
+      96,
+      96,
+      xPositionZooey,
+      yPositionZooey,
+      zWidth,
+      zHeight
+    );
   drawAlien();
   drawBullet();
   drawCoin();
   drawFireballs();
+  if (died) {
+    window.cancelAnimationFrame(animationID);
+  }
   detectCollision();
 }
 
@@ -118,12 +132,6 @@ function shootFireball() {
 
 function drawAlien() {
   aliens.forEach((alien) => {
-    if (alien.strength === 3) {
-      alien.color = "rgb(0,255,0)";
-    }
-    if (alien.strength === 1) {
-      alien.color = "orange";
-    }
     alien.imgYloc = (alien.imgYloc + 0.2) % 3;
     ctx.drawImage(
       alienImg,
@@ -157,10 +165,10 @@ function createAlien() {
   }
 }
 
-let currentSpeed = 4000; // the current alien speed
-let speedChange = 300; // this is how much the speed will "increase" by
+let currentSpeed = 4000;         // the current alien speed
+let speedChange = 300;           // this is how much the speed will "increase" by
 let speedChangeFrequency = 8000; // change the speed of the  aliens every 6500 secs
-let topSpeed = 400; // the fastest speed the aliens will appear
+let topSpeed = 400;              // the fastest speed the aliens will appear
 let alienInterval;
 function difficulty() {
   if (currentSpeed - speedChange >= topSpeed) {
@@ -182,12 +190,15 @@ function drawBullet() {
     ctx.fillRect(bullet.x, (bullet.y -= 15), bullet.width, bullet.height);
   });
 }
-function shootBullets() {
+
+canvas.onclick = shootBullets
+
+function shootBullets(e) {
   let bullet = {
     x: xPositionZooey + 120 / 2,
     y: yPositionZooey,
     color: "pink",
-    width: 20,
+    width: 25,
     height: 10,
   };
   bullets.push(bullet);
@@ -238,7 +249,7 @@ function detectCollision() {
         }
         bullets.splice(j, 1);
       }
-      // if(obs.y >canvas.height +1000){
+      // if(obs.y >canvas.height +600){
       //   aliens.splice(i,1)
       // }
       if (bullet.y < 0) {
@@ -252,19 +263,7 @@ function detectCollision() {
       yPositionZooey < obs.y + obs.height &&
       yPositionZooey + zHeight > obs.y
     ) {
-      ctx.clearRect(xPositionZooey, yPositionZooey, zWidth, zHeight);
-      ctx.drawImage(
-        road,
-        xPositionZooey,
-        yPositionZooey,
-        canvas.width,
-        canvas.height
-      );
-      console.log("collision");
-      window.cancelAnimationFrame(animationID);
-      // alert("You were eaten by aliens");
-      // window.location.href = "index.html";
-      // location.reload()
+      died = true
     }
   });
 
@@ -275,18 +274,7 @@ function detectCollision() {
       yPositionZooey < fireball.y + fireball.height &&
       yPositionZooey + zHeight > fireball.y
     ) {
-      ctx.clearRect(xPositionZooey, yPositionZooey, zWidth, zHeight);
-      ctx.drawImage(
-        road,
-        xPositionZooey,
-        yPositionZooey,
-        canvas.width,
-        canvas.height
-      );
-      window.cancelAnimationFrame(animationID);
-      // alert("Fireball killed you!");
-      // // window.location.href = "index.html";
-      // location.reload()
+      died = true;
     }
   });
 
@@ -299,7 +287,7 @@ function detectCollision() {
     ) {
       console.log("got coin");
       coins.splice(k, 1);
-      currentScore++;
+      currentScore+=10;
       document.querySelector(
         "#currentScore"
       ).innerHTML = `Points: ${currentScore}`;

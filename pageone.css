@@ -3,7 +3,7 @@ body, html, main {
 }
 
 html {
-    font-family: Arial, Helvetica, sans-serif;
+    font-family: "gamefont", Arial, sans-serif;
     font-size: 20px;
 }
 
@@ -25,7 +25,7 @@ html {
     justify-content: center;
     align-items: center;
     z-index: 5;
-    margin: 200px 0px auto 650px
+    margin: 200px 0px auto 550px
 }
 
 #highscores ul {
@@ -39,14 +39,14 @@ html {
     z-index: 2;
     list-style-type: none;
     font-weight: bolder;
-    margin: 100px auto auto -150px
+    margin: 100px auto auto -190px
 }
 
 
 
 .startBtn {
     background-color: rgb(34, 185, 34);
-    margin: 700px auto auto 880px;
+    margin: 730px auto auto 900px;
     padding: 20px 35px;
     font-size: 20px;
     font-weight: bolder;
@@ -57,4 +57,5 @@ html {
     justify-content: center;
     align-items: center;
     z-index: 3;
+    font-family: "gamefont", Arial, sans-serif;
 }
