@@ -105,7 +105,6 @@ function drawFireballs() {
   fireballs.forEach((fireball) => {
     fireball.imgP = (fireball.imgP + 1) % 3;
     ctx.fillStyle = "yellow";
-    console.log(fireball.imgP);
     ctx.drawImage(
       fireballImg,
       fireball.imgP * 50,
@@ -243,7 +242,6 @@ function detectCollision() {
             height: 20,
             imgP: 0,
           };
-          console.log(newCoin.imgP);
           coins.push(newCoin);
           aliens.splice(i, 1);
         }
