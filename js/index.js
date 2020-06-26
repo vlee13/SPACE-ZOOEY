@@ -1,7 +1,10 @@
 window.onload = (e) => {
   console.log(e);
 };
-let mainAudio;
+let mainAudio = document.querySelector("#audio")
+console.dir(mainAudio)
+mainAudio.loop = true;
+mainAudio.volume = .01
 
 
 // TO DO:
@@ -83,19 +86,8 @@ async function animationLoop() {
 animationLoop();
 
 canvas.onmousemove = moveZooey;
-let audioNoStart = true
-
-
 
 function moveZooey(e) {
-  if(audioNoStart){
-    mainAudio = document.querySelector("#audio")
-    console.dir(mainAudio)
-    mainAudio.loop = true;
-    mainAudio.volume = .1
-    mainAudio.play()
-    audioNoStart=false
-  }
   // console.log(e.clientX, e.clientY);
   var w = window.innerWidth;
   let m = (w - canvas.width) / 2;
@@ -250,6 +242,7 @@ function detectCollision() {
             height: 20,
             imgP: 0,
           };
+          console.log(newCoin.imgP);
           coins.push(newCoin);
           aliens.splice(i, 1);
         }
