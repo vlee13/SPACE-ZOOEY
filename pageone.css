@@ -1,4 +1,6 @@
-body, html, main {
+body,
+html,
+main {
     margin: 0;
 }
 
@@ -9,7 +11,7 @@ html {
 
 .bg {
     position: relative;
-    background-image: url("./images/spacebg1.jpg"); 
+    background-image: url("./images/spacebg1.jpg");
     height: 100vh;
     background-position: center;
     background-repeat: no-repeat;
