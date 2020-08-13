@@ -6,33 +6,35 @@ main {
 
 html {
     font-family: "gamefont", Arial, sans-serif;
-    font-size: 20px;
+    font-size: 4vw;
 }
 
 .bg {
-    position: relative;
-    background-image: url("./images/spacebg1.jpg");
+    position: absolute;
+    background-image: url("/images/spacebg1.jpg");
     height: 100vh;
+    width: 100vw;
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
+    overflow: hidden
 }
 
 .title {
     color: white;
-    font-size: 80px;
+    font-size: 4vw;
     position: absolute;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     z-index: 5;
-    margin: 200px 0px auto 550px
+    margin: 17vh 0vw auto 29vw
 }
 
 #highscores ul {
     color: rgb(81, 74, 124);
-    font-size: 30px;
+    font-size: 1.5vw;
     position: absolute;
     display: flex;
     flex-direction: column;
@@ -41,18 +43,18 @@ html {
     z-index: 2;
     list-style-type: none;
     font-weight: bolder;
-    margin: 100px auto auto -190px
+    margin: 10vh auto auto -10vw
 }
 
 
 
 .startBtn {
     background-color: rgb(34, 185, 34);
-    margin: 730px auto auto 900px;
-    padding: 20px 35px;
-    font-size: 25px;
+    margin: 70vh auto auto 46vw;
+    padding: 3vh 2.5vw;
+    font-size: 1vw;
     font-weight: bolder;
-    box-shadow: 5px 10px #eb97d8;
+    box-shadow: 1vh .5vw #eb97d8;
     position: absolute;
     display: flex;
     flex-direction: column;

@@ -1,23 +1,23 @@
 window.onload = (e) => {
   console.log(e);
+  let mainAudio = document.querySelector("#audio");
+  console.dir(mainAudio);
+  mainAudio.loop = true;
+  mainAudio.volume = 0.1;
+  mainAudio.controls = false;
+
+  document.onmousemove = () => {
+    if (died) {
+      mainAudio.pause();
+    } else {
+      mainAudio.play();
+    }
+  };
 };
-let mainAudio = document.querySelector("#audio");
-console.dir(mainAudio);
-mainAudio.loop = true;
-mainAudio.volume = 0.05;
-mainAudio.play();
 
-// TO DO:
-// audio tweek - hide audio image, loop and volume control
-// hold mouse down for shooting bullets
-// rectangles bullets to sprite bullets
-// how to pop-up window game over (not alert - makes bug)
-// css issues with all text
-
-// WOULD BE NICE HAVE
-// high score with friends
-// aliens and zooey explode when they die
-// audio for bullets, fireball, coin pick up, alien explode
+/***************NOTE: ********/
+//zooey movement on canvas not full width on anything less than fullscreen on desktop
+//stop audio when game over***** (lower priority bc audio stops on mouse move after died=true)
 
 /*************GLOBAL********/
 
