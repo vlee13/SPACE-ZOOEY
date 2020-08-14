@@ -30,11 +30,22 @@
     <button class="startBtn">Start</button>
     <div class="bg">i</div>
     <!-- <a href="game.html">Start</a> -->
+    <audio id="audio" controls autoplay>
+      <source src="Afterburner.ogg" type="audio/ogg" />
+    </audio>
   </body>
   <script>
     document.querySelector("button").onclick = function () {
+      let mainAudio = document.querySelector("#audio");
+
+      console.dir(mainAudio);
+      mainAudio.loop = true;
+      mainAudio.volume = 0.1;
+      mainAudio.controls = false;
+      mainAudio.play();
+
       window.location.href = "game.html";
     };
   </script>
-  <script type="text/javascript" src="js/pageone.js"></script>
+  <script type="text/javascript" src="/js/pageone.js"></script>
 </html>
