@@ -1,23 +1,12 @@
+let mainAudio = document.querySelector("#audio");
 window.onload = (e) => {
   console.log(e);
-  let mainAudio = document.querySelector("#audio");
   console.dir(mainAudio);
   mainAudio.loop = true;
   mainAudio.volume = 0.1;
   mainAudio.controls = false;
-
-  document.onmousemove = () => {
-    if (died) {
-      mainAudio.pause();
-    } else {
-      mainAudio.play();
-    }
-  };
+  mainAudio.play();
 };
-
-/***************NOTE: ********/
-//zooey movement on canvas not full width on anything less than fullscreen on desktop
-//stop audio when game over***** (lower priority bc audio stops on mouse move after died=true)
 
 /*************GLOBAL********/
 
@@ -50,6 +39,8 @@ let currentScore = 0;
 let died = false;
 
 /*******ANIMATION***********/
+//called resursively aka function called within itself
+//callback gets executed ~60x per second (refresh rate of browser)
 
 async function animationLoop() {
   animationID = window.requestAnimationFrame(animationLoop);
@@ -85,6 +76,8 @@ animationLoop();
 
 canvas.onmousemove = moveZooey;
 
+//function declarations
+
 function moveZooey(e) {
   // console.log(e.clientX, e.clientY);
   var w = window.innerWidth;
@@ -97,6 +90,17 @@ function moveZooey(e) {
       imageX += 96;
     }
   }
+}
+
+function shootFireball() {
+  const fireball = {
+    x: xPositionZooey + 40,
+    y: 0,
+    width: 30,
+    height: 30,
+    imgP: 0,
+  };
+  fireballs.push(fireball);
 }
 
 function drawFireballs() {
@@ -115,17 +119,6 @@ function drawFireballs() {
       50
     );
   });
-}
-
-function shootFireball() {
-  const fireball = {
-    x: xPositionZooey + 40,
-    y: 0,
-    width: 30,
-    height: 30,
-    imgP: 0,
-  };
-  fireballs.push(fireball);
 }
 
 function drawAlien() {
@@ -261,6 +254,7 @@ function detectCollision() {
       yPositionZooey + zHeight > obs.y
     ) {
       died = true;
+      mainAudio.pause();
     }
   });
 
