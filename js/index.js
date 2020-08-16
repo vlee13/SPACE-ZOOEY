@@ -1,12 +1,12 @@
 let mainAudio = document.querySelector("#audio");
-// window.onload = (e) => {
-//   console.log(e);
-//   console.dir(mainAudio);
-mainAudio.loop = true;
-mainAudio.volume = 0.1;
-mainAudio.controls = false;
-//   mainAudio.play();
-// };
+window.onload = (e) => {
+  console.log(e);
+  console.dir(mainAudio);
+  mainAudio.loop = true;
+  mainAudio.volume = 0.1;
+  mainAudio.controls = false;
+  mainAudio.play();
+};
 
 /*************GLOBAL********/
 
