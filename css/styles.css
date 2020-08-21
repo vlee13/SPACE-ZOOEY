@@ -31,8 +31,12 @@ canvas {
   top: 3%;
 }
 
-/* #audio {
+#playgame {
   position: absolute;
-  filter: invert(1);
+  margin: 80vh 72vw;
+  padding: 2em;
+  background-color: #eb97d8;
+  font-family: "gamefont", Arial, sans-serif;
+  font-weight: bold;
 
-} */
+}

@@ -16,7 +16,7 @@ document.querySelector("#playgame").onclick = function (e) {
 //   mainAudio.controls = false;
 //   mainAudio.play();
 // };
-console.log("HELLO");
+
 /*************GLOBAL********/
 
 const canvas = document.querySelector("#canvas");
