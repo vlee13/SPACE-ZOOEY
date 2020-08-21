@@ -7,7 +7,7 @@ window.onload = (e) => {
   mainAudio.controls = false;
   mainAudio.play();
 };
-
+console.log("HELLO");
 /*************GLOBAL********/
 
 const canvas = document.querySelector("#canvas");
