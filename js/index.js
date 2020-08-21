@@ -1,12 +1,21 @@
 let mainAudio = document.querySelector("#audio");
-window.onload = (e) => {
-  console.log(e);
-  console.dir(mainAudio);
+document.querySelector("#playgame").onclick = function (e) {
   mainAudio.loop = true;
   mainAudio.volume = 0.1;
   mainAudio.controls = false;
   mainAudio.play();
+  animationLoop();
 };
+
+// let mainAudio = document.querySelector("#audio");
+// window.onload = (e) => {
+//   console.log(e);
+//   console.dir(mainAudio);
+//   mainAudio.loop = true;
+//   mainAudio.volume = 0.1;
+//   mainAudio.controls = false;
+//   mainAudio.play();
+// };
 console.log("HELLO");
 /*************GLOBAL********/
 
@@ -71,8 +80,6 @@ async function animationLoop() {
   }
   detectCollision();
 }
-
-animationLoop();
 
 canvas.onmousemove = moveZooey;
 
