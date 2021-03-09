@@ -2,25 +2,17 @@ let mainAudio = document.querySelector("#audio");
 document.querySelector("#playgame").onclick = function (e) {
   mainAudio.loop = true;
   mainAudio.volume = 0.1;
-  mainAudio.controls = false;
+  // mainAudio.controls = false;
   mainAudio.play();
   animationLoop();
 };
-
-// let mainAudio = document.querySelector("#audio");
-// window.onload = (e) => {
-//   console.log(e);
-//   console.dir(mainAudio);
-//   mainAudio.loop = true;
-//   mainAudio.volume = 0.1;
-//   mainAudio.controls = false;
-//   mainAudio.play();
-// };
 
 /*************GLOBAL********/
 
 const canvas = document.querySelector("#canvas");
 const ctx = canvas.getContext("2d");
+canvas.height = window.innerHeight;
+canvas.width = window.innerWidth;
 let road = new Image();
 road.src = "./images/spacebg2.jpg";
 let zooey = new Image();
@@ -240,7 +232,6 @@ function detectCollision() {
             height: 20,
             imgP: 0,
           };
-          console.log(newCoin.imgP);
           coins.push(newCoin);
           aliens.splice(i, 1);
         }
@@ -283,11 +274,10 @@ function detectCollision() {
       yPositionZooey < coin.y + coin.height &&
       yPositionZooey + zHeight > coin.y
     ) {
-      console.log("got coin");
       coins.splice(k, 1);
       currentScore += 10;
       document.querySelector(
-        "#currentScore"
+        ".currentScore"
       ).innerHTML = `Points: ${currentScore}`;
     }
     if (coin.y > canvas.height) {
