@@ -23,10 +23,10 @@ let coinImage = new Image();
 coinImage.src = "./images/coinimage.png";
 let fireballImg = new Image();
 fireballImg.src = "./images/fireball.png";
-let yPositionZooey = canvas.height - 120;
-let xPositionZooey = canvas.width / 2 - 50;
-let zWidth = 130;
-let zHeight = 100;
+let yPositionZooey = canvas.height - 90; //zWidth
+let xPositionZooey = canvas.width / 2 - 35; //half zHeight
+let zWidth = 90;
+let zHeight = 70;
 let imageX = 0;
 let imageY = 96 * 2;
 let animationID;
@@ -138,15 +138,15 @@ function drawAlien() {
 }
 
 function createAlien() {
-  x = 30;
+  // x = 30;
 
-  for (let i = 0; i < 8; i++) {
+  for (let i = 0; i < 14; i++) {
     let imgYloc = Math.floor(Math.random() * 3);
     let newAliens = {
-      x: x + 90 * i,
+      x: 90 * i,
       y: 0,
-      width: 70,
-      height: 70,
+      width: 55,
+      height: 55,
       strength: 3,
       imgYloc,
       color: "rgb(0,255,0)",
@@ -185,10 +185,10 @@ canvas.onclick = shootBullets;
 
 function shootBullets(e) {
   let bullet = {
-    x: xPositionZooey + 120 / 2,
+    x: xPositionZooey + zWidth / 2.5,
     y: yPositionZooey,
     color: "pink",
-    width: 25,
+    width: 23,
     height: 10,
   };
   bullets.push(bullet);
